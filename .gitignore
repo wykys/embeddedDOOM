@@ -55,3 +55,9 @@ dkms.conf
 support/
 emdoom
 emdoom.gentables.initial
+
+# RISCie
+*.lss
+*.lst
+*.bin
+*.elf
