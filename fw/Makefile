@@ -10,8 +10,23 @@ TARGET = app
 OPT = -O0
 # build dir
 BUILD_DIR = build
+
 # includes
-INC = -Iapp/inc -Idrivers/inc
+INC = \
+-Iapp/inc \
+-Idrivers/inc \
+-Idoom \
+-Idoom/inc \
+-I/usr/include
+
+# defines
+DEF = \
+-DMAXPLAYERS=1 \
+-DDISABLE_NETWORK \
+# -DUSEASM \
+#-DLINUX \
+# -DNORMALUNIX \
+# -DRANGECHECK
 
 ######################################
 # source
@@ -19,6 +34,8 @@ INC = -Iapp/inc -Idrivers/inc
 # C sources
 C_SOURCES = $(wildcard app/src/*.c)
 C_SOURCES += $(wildcard drivers/src/*.c)
+C_SOURCES += $(wildcard doom/src/*.c)
+C_SOURCES += $(wildcard doom/support/*.c)
 
 # ASM sources
 ASM_SOURCES = \
@@ -51,7 +68,9 @@ SIMULATOR = ../cpu-cpp-emulator/sw/build/cpu-emulator
 ARCH = -march=rv32i
 SPEC = -nostartfiles --specs=nosys.specs
 AFLAGS = $(ARCH) $(SPEC) -Wall $(INC)
-CFLAGS = $(ARCH) $(SPEC) -Wall -std=c99 $(INC) $(OPT) -fdata-sections -ffunction-sections
+CFLAGS = $(ARCH) $(SPEC) -Wall $(INC) $(DEF) $(OPT) -fdata-sections -ffunction-sections
+
+# CFLAGS?=-m32 -Os -g -w -flto
 
 LDSCRIPT = linker_script.ld
 LDFLAGS = $(ARCH) $(SPEC) -Wl,--gc-sections -Wl,-Map=$(BUILD_DIR)/$(TARGET).map -Wl,--cref -T$(LDSCRIPT)
