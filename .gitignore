@@ -61,3 +61,8 @@ emdoom.gentables.initial
 *.lst
 *.bin
 *.elf
+
+# wad_to_c
+generated/
+wadder
+shrinkwad
