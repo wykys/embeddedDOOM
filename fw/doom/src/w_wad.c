@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -27,9 +27,9 @@
 //Added elsewhere
 
 #ifdef GENERATE_BAKED
-#include "support/rawwad.h"
+#include "rawwad.h"
 #else
-#include "support/rawwad_use.h"
+#include "rawwad_use.h"
 #endif
 
 #ifdef NORMALUNIX
@@ -55,8 +55,8 @@
 
 
 
-int filelength (int handle) 
-{ 
+int filelength (int handle)
+{
 		return sizeof( rawwad );
 }
 
@@ -67,7 +67,7 @@ int filelength (int handle)
 //
 
 // Location of each lump on disk.
-//lumpinfo_t*				lumpinfo;				
+//lumpinfo_t*				lumpinfo;
 //int						numlumps;
 //void**						lumpcache;
 
@@ -89,7 +89,7 @@ ExtractFileBase
 	int				length;
 
 	src = path + strlen(path) - 1;
-	
+
 	// back up until a \ or the start
 	while (src != path
 		   && *(src-1) != '\\'
@@ -97,11 +97,11 @@ ExtractFileBase
 	{
 		src--;
 	}
-	
+
 	// copy up to eight characters
 	memset (dest,0,8);
 	length = 0;
-	
+
 	while (*src && *src != '.')
 	{
 		if (++length == 9)
@@ -169,7 +169,7 @@ void W_Reload (void)
 //  does override all earlier ones.
 //
 void W_InitMultipleFiles (char** filenames)
-{		
+{
 		return;
 }
 
@@ -212,7 +212,7 @@ int W_CheckNumForName (char* name)
 		char	s[9];
 		int		x[2];
 	} name8;
-	
+
 	int				v1;
 	int				v2;
 	lumpinfo_t*		lump_p;
@@ -224,7 +224,7 @@ int W_CheckNumForName (char* name)
 	name8.s[8] = 0;
 
 	// case insensitive
-	strupr (name8.s);				
+	strupr (name8.s);
 
 	v1 = name8.x[0];
 	v2 = name8.x[1];
@@ -266,7 +266,7 @@ int W_GetNumForName (char* name)
 
 	if (i == -1)
 	  I_Error ("W_GetNumForName: %s not found!", name);
-  
+
 	return i;
 }
 
@@ -333,7 +333,7 @@ W_CacheLumpNum
 /*	if (!lumpcache[lump])
 	{
 		// read the lump in
-		
+
 		//printf ("cache miss on lump %i\n",lump);
 		ptr = Z_Malloc (W_LumpLength (lump), tag, &lumpcache[lump]);
 				W_ReadLump (lump, lumpcache[lump]);
@@ -343,7 +343,7 @@ W_CacheLumpNum
 				//printf ("cache hit on lump %i\n",lump);
 				Z_ChangeTag (lumpcache[lump],tag);
 	}
-		
+
 	return lumpcache[lump];*/
 }
 
