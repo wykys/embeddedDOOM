@@ -1,5 +1,5 @@
-# DEMO Makefile RISC-V
-# wykys 2019
+# Makefile for generating support files for DOOM
+# wykys 2023
 
 ######################################
 # project variables
