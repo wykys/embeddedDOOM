@@ -15,7 +15,6 @@ BUILD_DIR = build
 INC = \
 -Iapp/inc \
 -Idrivers/inc \
--Idoom \
 -Idoom/inc \
 -Igenerated \
 -I/usr/include
@@ -35,8 +34,69 @@ DEF = \
 # C sources
 C_SOURCES = $(wildcard app/src/*.c)
 C_SOURCES += $(wildcard drivers/src/*.c)
-C_SOURCES += $(wildcard doom/src/*.c)
 C_SOURCES += $(wildcard generated/*.c)
+C_SOURCES +=        \
+doom/src/doomdef.c  \
+doom/src/doomstat.c \
+doom/src/dstrings.c \
+doom/src/i_system.c \
+doom/src/tables.c   \
+doom/src/f_finale.c \
+doom/src/f_wipe.c   \
+doom/src/d_main.c   \
+doom/src/d_items.c  \
+doom/src/g_game.c   \
+doom/src/m_menu.c   \
+doom/src/m_misc.c   \
+doom/src/m_argv.c   \
+doom/src/m_bbox.c   \
+doom/src/m_fixed.c  \
+doom/src/m_swap.c   \
+doom/src/m_cheat.c  \
+doom/src/m_random.c \
+doom/src/am_map.c   \
+doom/src/p_ceilng.c \
+doom/src/p_doors.c  \
+doom/src/p_enemy.c  \
+doom/src/p_floor.c  \
+doom/src/p_inter.c  \
+doom/src/p_lights.c \
+doom/src/p_map.c    \
+doom/src/p_maputl.c \
+doom/src/p_plats.c  \
+doom/src/p_pspr.c   \
+doom/src/p_setup.c  \
+doom/src/p_sight.c  \
+doom/src/p_spec.c   \
+doom/src/p_switch.c \
+doom/src/p_mobj.c   \
+doom/src/p_telept.c \
+doom/src/p_tick.c   \
+doom/src/p_saveg.c  \
+doom/src/p_user.c   \
+doom/src/r_bsp.c    \
+doom/src/r_data.c   \
+doom/src/r_draw.c   \
+doom/src/r_main.c   \
+doom/src/r_plane.c  \
+doom/src/r_segs.c   \
+doom/src/r_sky.c    \
+doom/src/r_things.c \
+doom/src/w_wad.c    \
+doom/src/wi_stuff.c \
+doom/src/v_video.c  \
+doom/src/st_lib.c   \
+doom/src/st_stuff.c \
+doom/src/hu_stuff.c \
+doom/src/hu_lib.c   \
+doom/src/z_zone.c   \
+doom/src/info.c     \
+doom/src/i_net.c    \
+doom/src/d_net.c    \
+doom/src/stubs.c    \
+doom/src/sounds.c   \
+doom/src/s_sound.c  \
+doom/src/i_sound.c
 
 # ASM sources
 ASM_SOURCES = \
