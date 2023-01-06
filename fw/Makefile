@@ -17,6 +17,7 @@ INC = \
 -Idrivers/inc \
 -Idoom \
 -Idoom/inc \
+-Igenerated \
 -I/usr/include
 
 # defines
@@ -35,7 +36,7 @@ DEF = \
 C_SOURCES = $(wildcard app/src/*.c)
 C_SOURCES += $(wildcard drivers/src/*.c)
 C_SOURCES += $(wildcard doom/src/*.c)
-C_SOURCES += $(wildcard doom/support/*.c)
+C_SOURCES += $(wildcard generated/*.c)
 
 # ASM sources
 ASM_SOURCES = \
@@ -133,3 +134,8 @@ show_default_linker_script:
 
 simulator: $(BUILD_DIR)/$(TARGET).bin
 	@$(SIMULATOR) $(BUILD_DIR)/$(TARGET).bin
+
+#######################################
+# dependencies
+#######################################
+-include $(wildcard $(BUILD_DIR)/*.d)
