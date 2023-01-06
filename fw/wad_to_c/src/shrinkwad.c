@@ -331,7 +331,7 @@ int main(int argc, char **argv)
 
     printf("Comparing: %d/%d/%d\n", tlump, numnewchunks, numlumps);
 
-    fprintf(f_c, "#include \"../w_wad.h\"\n"
+    fprintf(f_c, "#include \"w_wad.h\"\n"
       "const int               numlumps = %d;\n", numnewchunks);
     fprintf(f_c, "const unsigned char rawwad[%d] = {", newtotal);
     for (i = 0; i < newtotal; i++)
