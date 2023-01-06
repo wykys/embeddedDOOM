@@ -54,39 +54,39 @@ $(GENERATED_DIR)/rawwad_begin.c \
 
 # create object files from C files
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/shrinkwad.o: src/shrinkwad.c $(GENERATED_DIR)/rawwad.c Makefile | $(BUILD_DIR) $(GENERATED_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/wadder.o: src/wadder.c Makefile | $(BUILD_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 # wadder
 $(BUILD_DIR)/wadder: $(BUILD_DIR)/wadder.o Makefile
-	$(CC) $(CFLAGS) $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@
 
 # shrinkwad
 $(BUILD_DIR)/shrinkwad: $(BUILD_DIR)/shrinkwad.o $(OBJECTS) Makefile
-	$(CC) $(CFLAGS) $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@
 
 # gennerated
-$(GENERATED_DIR)/rawwad.c: $(BUILD_DIR)/wadder
-	$(BUILD_DIR)/wadder
+$(GENERATED_DIR)/rawwad.c: $(BUILD_DIR)/wadder | $(GENERATED_DIR)
+	@$(BUILD_DIR)/wadder
 
-$(GENERATED_DIR)/rawwad_use.c : $(BUILD_DIR)/shrinkwad stripchoice.txt add_sprites.txt
-	$(BUILD_DIR)/shrinkwad stripchoice.txt add_sprites.txt $(GENERATED_DIR)/rawwad_use.c $(GENERATED_DIR)/rawwad_use.h
+$(GENERATED_DIR)/rawwad_use.c : $(BUILD_DIR)/shrinkwad stripchoice.txt add_sprites.txt | $(GENERATED_DIR)
+	@$(BUILD_DIR)/shrinkwad stripchoice.txt add_sprites.txt $(GENERATED_DIR)/rawwad_use.c $(GENERATED_DIR)/rawwad_use.h
 
-$(GENERATED_DIR)/rawwad_begin.c : $(BUILD_DIR)/shrinkwad stripchoicebegin.txt
-	$(BUILD_DIR)/shrinkwad stripchoicebegin.txt 0 $(GENERATED_DIR)/rawwad_begin.c $(GENERATED_DIR)/rawwad_begin.h
+$(GENERATED_DIR)/rawwad_begin.c : $(BUILD_DIR)/shrinkwad stripchoicebegin.txt | $(GENERATED_DIR)
+	@$(BUILD_DIR)/shrinkwad stripchoicebegin.txt 0 $(GENERATED_DIR)/rawwad_begin.c $(GENERATED_DIR)/rawwad_begin.h
 
 # create build directory
 $(BUILD_DIR):
-	mkdir $@
+	@mkdir $@
 
 # create generated dir
 $(GENERATED_DIR):
-	mkdir $@
+	@mkdir $@
 
 # clean up
 clean:
