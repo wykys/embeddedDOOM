@@ -21,7 +21,10 @@ INC = \
 
 # defines
 DEF = \
--DMAXPLAYERS=1 \
+-DRV32IMA_BUILD \
+-DDISABLE_NETWORK \
+-DFIXED_HEAP=262144 \
+#-DMAXPLAYERS=1 \
 -DDISABLE_NETWORK \
 # -DUSEASM \
 #-DLINUX \
@@ -34,7 +37,10 @@ DEF = \
 # C sources
 C_SOURCES = $(wildcard app/src/*.c)
 C_SOURCES += $(wildcard drivers/src/*.c)
-C_SOURCES += $(wildcard generated/*.c)
+
+C_SOURCES +=             \
+generated/rawwad_use.c \
+
 C_SOURCES +=        \
 doom/src/doomdef.c  \
 doom/src/doomstat.c \
@@ -126,15 +132,16 @@ SIMULATOR = ../cpu-cpp-emulator/sw/build/cpu-emulator
 # build the application
 #######################################
 # compile gcc flags
-ARCH = -march=rv32i
-SPEC = -nostartfiles --specs=nosys.specs
+ARCH = -march=rv32ima -mabi=ilp32   #-march=rv32i
+SPEC = -nostartfiles # --specs=nosys.specs
 AFLAGS = $(ARCH) $(SPEC) -Wall $(INC)
-CFLAGS = $(ARCH) $(SPEC) -Wall $(INC) $(DEF) $(OPT) -fdata-sections -ffunction-sections
+CFLAGS = $(ARCH) $(SPEC) -Wall $(INC) $(DEF) $(OPT) -fno-stack-protector -static -static-libgcc -fdata-sections -ffunction-sections
 
-# CFLAGS?=-m32 -Os -g -w -flto
+
+# LDFLAGS= -Wl,--gc-sections # -T flatfile-rv32ima.lds -nostdlib
 
 LDSCRIPT = linker_script.ld
-LDFLAGS = $(ARCH) $(SPEC) -Wl,--gc-sections -Wl,-Map=$(BUILD_DIR)/$(TARGET).map -Wl,--cref -T$(LDSCRIPT)
+LDFLAGS = $(ARCH) $(SPEC) -Wl,--gc-sections # -T$(LDSCRIPT)
 
 # generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"
@@ -155,45 +162,45 @@ size
 
 # create object files from C files
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
-	@$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@
 # create object files from ASM files
 $(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR)
-	@$(AS) -c $(AFLAGS) $< -o $@
+	$(AS) -c $(AFLAGS) $< -o $@
 $(BUILD_DIR)/init.o: $(BUILD_DIR)/init.S Makefile | $(BUILD_DIR)
-	@$(AS) -c $(AFLAGS) $< -o $@
+	$(AS) -c $(AFLAGS) $< -o $@
 # create init asm
 init: $(BUILD_DIR)/rodata.bin $(BUILD_DIR)/data.bin
-	@./init.py
+	./init.py
 # create aplication ELF file
 $(BUILD_DIR)/tmp.elf: $(OBJECTS) Makefile
-	@$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 $(BUILD_DIR)/$(TARGET).elf: init $(OBJECTS) $(BUILD_DIR)/init.o Makefile
-	@$(CC) $(OBJECTS) $(BUILD_DIR)/init.o $(LDFLAGS) -o $@
+	$(CC) $(OBJECTS) $(BUILD_DIR)/init.o $(LDFLAGS) -o $@
 # create bin program file
 $(BUILD_DIR)/$(TARGET).bin: $(BUILD_DIR)/$(TARGET).elf | $(BUILD_DIR)
-	@$(BIN) --only-section .text $< $@
+	$(BIN) --only-section .text $< $@
 # create bin data file for RAM initialization
 $(BUILD_DIR)/rodata.bin: $(BUILD_DIR)/tmp.elf | $(BUILD_DIR)
-	@$(BIN) --only-section .rodata $< $@
+	$(BIN) --only-section .rodata $< $@
 $(BUILD_DIR)/data.bin: $(BUILD_DIR)/tmp.elf | $(BUILD_DIR)
-	@$(BIN) --only-section .data $< $@
+	$(BIN) --only-section .data $< $@
 # disassembly EFL
 $(BUILD_DIR)/$(TARGET).lss: $(BUILD_DIR)/$(TARGET).elf
-	@$(DP) -h -S $< > $@
+	$(DP) -h -S $< > $@
 # create build directory
 $(BUILD_DIR):
-	@mkdir $@
+	mkdir $@
 # prints memory usage tables
 size:
-	@$(SZ) $(BUILD_DIR)/$(TARGET).elf
+	$(SZ) $(BUILD_DIR)/$(TARGET).elf
 # clean up
 clean:
-	@$(RM) $(BUILD_DIR)
+	$(RM) $(BUILD_DIR)
 show_default_linker_script:
-	@$(LD) --verbose -arch=elf32lriscv
+	$(LD) --verbose -arch=elf32lriscv
 
 simulator: $(BUILD_DIR)/$(TARGET).bin
-	@$(SIMULATOR) $(BUILD_DIR)/$(TARGET).bin
+	$(SIMULATOR) $(BUILD_DIR)/$(TARGET).bin
 
 #######################################
 # dependencies
