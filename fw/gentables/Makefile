@@ -26,6 +26,9 @@ DEF =                    \
 -DRANGECHECK             \
 -DDISABLE_NETWORK        \
 
+# remove maps
+STRIKEMAP:=-strikemap 2 3 4 5 6 7 8 9
+
 ######################################
 # source
 ######################################
