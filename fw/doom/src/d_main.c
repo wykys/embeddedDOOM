@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -156,12 +156,12 @@ void D_PostEvent (event_t* ev)
 void D_ProcessEvents (void)
 {
     event_t*	ev;
-	
+
     // IF STORE DEMO, DO NOT ACCEPT INPUT
     if ( ( gamemode == commercial )
 	 && (W_CheckNumForName("map01")<0) )
       return;
-	
+
     for ( ; eventtail != eventhead ; eventtail = (++eventtail)&(MAXEVENTS-1) )
     {
 	ev = &events[eventtail];
@@ -203,9 +203,9 @@ void D_Display (void)
 
     if (nodrawers)
 	return;                    // for comparative timing / profiling
-		
+
     redrawsbar = false;
-    
+
     // change the view size if needed
     if (setsizeneeded)
     {
@@ -225,7 +225,7 @@ void D_Display (void)
 
     if (gamestate == GS_LEVEL && gametic)
 	HU_Erase();
-    
+
     // do buffered drawing
     switch (gamestate)
     {
@@ -254,17 +254,17 @@ void D_Display (void)
 	D_PageDrawer ();
 	break;
     }
-    
+
     // draw buffered stuff to screen
     I_UpdateNoBlit ();
-    
+
     // draw the view directly
     if (gamestate == GS_LEVEL && !automapactive && gametic)
 	R_RenderPlayerView (&players[displayplayer]);
 
     if (gamestate == GS_LEVEL && gametic)
 	HU_Drawer ();
-    
+
     // clean up border stuff
     if (gamestate != oldgamestate && gamestate != GS_LEVEL)
 	I_SetPalette (W_CacheLumpName ("PLAYPAL",PU_CACHE));
@@ -293,7 +293,7 @@ void D_Display (void)
     viewactivestate = viewactive;
     inhelpscreensstate = inhelpscreens;
     oldgamestate = wipegamestate = gamestate;
-    
+
     // draw pause pic
     if (paused)
     {
@@ -317,7 +317,7 @@ void D_Display (void)
 	I_FinishUpdate ();              // page flip or blit buffer
 	return;
     }
-    
+
     // wipe update
     wipe_EndScreen(0, 0, SCREENWIDTH, SCREENHEIGHT);
 
@@ -350,7 +350,7 @@ void D_DoomLoop (void)
 {
     if (demorecording)
 	G_BeginRecording ();
-		
+
     if (M_CheckParm ("-debugfile"))
     {
 	char    filename[20];
@@ -358,14 +358,14 @@ void D_DoomLoop (void)
 	printf ("debug output to: %s\n",filename);
 	debugfile = fopen (filename,"w");
     }
-	
+
     I_InitGraphics ();
 
     while (1)
     {
 	// frame syncronous IO operations
-	I_StartFrame ();                
-	
+	I_StartFrame ();
+
 	// process one or more tics
 	if (singletics)
 	{
@@ -383,7 +383,7 @@ void D_DoomLoop (void)
 	{
 	    TryRunTics (); // will run at least one tic
 	}
-		
+
 	S_UpdateSounds (players[consoleplayer].mo);// move positional sounds
 
 	// Update display, next frame, with current state.
@@ -392,7 +392,7 @@ void D_DoomLoop (void)
 #ifndef SNDSERV
 	// Sound mixing for the buffer is snychronous.
 	I_UpdateSound();
-#endif	
+#endif
 	// Synchronous sound output is explicitly called.
 #ifndef SNDINTR
 	// Update sound output.
@@ -458,7 +458,7 @@ void D_AdvanceDemo (void)
       demosequence = (demosequence+1)%7;
     else
       demosequence = (demosequence+1)%6;
-    
+
     switch (demosequence)
     {
       case 0:
@@ -556,10 +556,10 @@ void D_DoomMain (void)
     char                    file[256];
 
     IdentifyVersion ();
-	
+
     setbuf (stdout, NULL);
     modifiedgame = false;
-	
+
     nomonsters = M_CheckParm ("-nomonsters");
     respawnparm = M_CheckParm ("-respawn");
     fastparm = M_CheckParm ("-fast");
@@ -623,12 +623,12 @@ void D_DoomMain (void)
 		 VERSION/100,VERSION%100);
 	break;
     }
-    
+
     printf ("%s\n",title);
 
     if (devparm)
 	printf(D_DEVSTR);
-    
+
 
     // turbo option
     if ( (p=M_CheckParm ("-turbo")) )
@@ -636,7 +636,7 @@ void D_DoomMain (void)
 	int     scale = 200;
 	extern int forwardmove[2];
 	extern int sidemove[2];
-	
+
 	if (p<myargc-1)
 	    scale = atoi (myargv[p+1]);
 	if (scale < 10)
@@ -649,7 +649,7 @@ void D_DoomMain (void)
 	sidemove[0] = sidemove[0]*scale/100;
 	sidemove[1] = sidemove[1]*scale/100;
     }
-    
+
     // add any files specified on the command line with -file wadfile
     // to the wad list
     //
@@ -671,7 +671,7 @@ void D_DoomMain (void)
 	    printf("Warping to Episode %s, Map %s.\n",
 		   myargv[p+1],myargv[p+2]);
 	    break;
-	    
+
 	  case commercial:
 	  default:
 	    p = atoi (myargv[p+1]);
@@ -683,7 +683,7 @@ void D_DoomMain (void)
 	}
 	//D_AddFile (file);
     }
-	
+
 /*
     p = M_CheckParm ("-file");
     if (p)
@@ -706,14 +706,14 @@ void D_DoomMain (void)
 	D_AddFile (file);
 	printf("Playing demo %s.lmp.\n",myargv[p+1]);
     }
-*/    
+*/
     // get skill / episode / map from parms
     startskill = sk_medium;
     startepisode = 1;
     startmap = 1;
     autostart = false;
 
-		
+
     p = M_CheckParm ("-skill");
     if (p && p < myargc-1)
     {
@@ -728,7 +728,7 @@ void D_DoomMain (void)
 	startmap = 1;
 	autostart = true;
     }
-	
+
     p = M_CheckParm ("-timer");
     if (p && p < myargc-1 && deathmatch)
     {
@@ -756,7 +756,7 @@ void D_DoomMain (void)
 	}
 	autostart = true;
     }
-    
+
     // init subsystems
     printf ("V_Init: allocate screens.\n");
     V_Init ();
@@ -782,19 +782,19 @@ void D_DoomMain (void)
 	    "dphoof","bfgga0","heada1","cybra1","spida1d1"
 	};
 	int i;
-	
+
 	if ( gamemode == shareware)
 	    I_Error("\nYou cannot -file with the shareware "
 		    "version. Register!");
 
 	// Check for fake IWAD with right name,
-	// but w/o all the lumps of the registered version. 
+	// but w/o all the lumps of the registered version.
 	if (gamemode == registered)
 	    for (i = 0;i < 23; i++)
 		if (W_CheckNumForName(name[i])<0)
 		    I_Error("\nThis is not the registered version.");
     }
-    
+
     // Iff additonal PWAD files are used, print modified banner
     if (modifiedgame)
     {
@@ -808,7 +808,7 @@ void D_DoomMain (void)
 	    );
 	getchar ();
     }
-	
+
 
     // Check and print which version is executed.
     switch ( gamemode )
@@ -831,7 +831,7 @@ void D_DoomMain (void)
 	    "===========================================================================\n"
 	);
 	break;
-	
+
       default:
 	// Ouch.
 	break;
@@ -866,12 +866,12 @@ void D_DoomMain (void)
     if (p && p<myargc-1)
     {
 	// for statistics driver
-	extern  void*	statcopy;                            
+	extern  void*	statcopy;
 
 	statcopy = (void*)atoi(myargv[p+1]);
 	printf ("External statistics registered.\n");
     }
-    
+
     // start the apropriate game based on parms
     p = M_CheckParm ("-record");
 
@@ -880,7 +880,7 @@ void D_DoomMain (void)
 	G_RecordDemo (myargv[p+1]);
 	autostart = true;
     }
-	
+
     p = M_CheckParm ("-playdemo");
     if (p && p < myargc-1)
     {
@@ -888,14 +888,14 @@ void D_DoomMain (void)
 	G_DeferedPlayDemo (myargv[p+1]);
 	D_DoomLoop ();  // never returns
     }
-	
+
     p = M_CheckParm ("-timedemo");
     if (p && p < myargc-1)
     {
 	G_TimeDemo (myargv[p+1]);
 	D_DoomLoop ();  // never returns
     }
-	
+
     p = M_CheckParm ("-loadgame");
     if (p && p < myargc-1)
     {
@@ -905,7 +905,7 @@ void D_DoomMain (void)
 	    sprintf(file, SAVEGAMENAME"%c.dsg",myargv[p+1][0]);
 	G_LoadGame (file);
     }
-	
+
 
     if ( gameaction != ga_loadgame )
     {
@@ -932,7 +932,7 @@ extern const unsigned short**	texturecolumnofs;
 extern const byte**			texturecomposite;
 extern const texture_t**	textures;
 
-	FILE * bf = fopen( "support/baked_texture_data.c", "w" );
+	FILE * bf = fopen( "../generated/baked_texture_data.c", "w" );
 	fprintf( bf, "//This file is autogenerated when compiled against GENERATE_BAKED and run.\n" );
 	fprintf( bf, "#include \"../r_data.h\"\n" );
 	fprintf( bf, "const int	numtextures = %d;\n", numtextures );
@@ -963,7 +963,7 @@ extern const texture_t**	textures;
 		fprintf( bf, "%d,", texturewidthmask[i] );
 	}
 	fprintf( bf, "}; \n\n" );
-	
+
 	fprintf( bf, "const fixed_t textureheight[%d] = {", numtextures );
 	for( i = 0;  i < numtextures;i ++ )
 	{
@@ -971,7 +971,7 @@ extern const texture_t**	textures;
 		fprintf( bf, "%d,", textureheight[i] );
 	}
 	fprintf( bf, "}; \n\n" );
-	
+
 	fprintf( bf, "const int texturecompositesize[%d] = {", numtextures );
 	for( i = 0;  i < numtextures;i ++ )
 	{
@@ -1126,7 +1126,7 @@ extern const texture_t**	textures;
 	{
 		printf( "Done creating baked_texture_data.c, moving onto maps.\n" );
 
-		bf = fopen( "support/baked_map_data.c", "w" );
+		bf = fopen( "../generated/baked_map_data.c", "w" );
 		fprintf( bf, "//This file is autogenerated when compiled against GENERATE_BAKED and run.\n" );
 		fprintf( bf, "#include \"../r_defs.h\"\n\n" );
 
@@ -1151,7 +1151,7 @@ extern const texture_t**	textures;
 			if( ai == -1 ) break;
 			bakemaps[ai] = "SKIP";
 			p++;
-		}		
+		}
 
 		int numvertexes_baked[BAKE_MAPS];
 		int numnodes_baked[BAKE_MAPS];
