@@ -107,9 +107,9 @@ RM = rm -rf
 # build the application
 #######################################
 # compile gcc flags
-LIBS = -lXext -lX11 -lnsl -lm -lpthread -L/usr/lib/i386-linux-gnu/
+LIBS = -lXext -lX11 -lnsl -lm -lpthread
 AFLAGS = -m32 $(INC)
-CFLAGS = -m32 $(INC) $(DEF) $(OPT) $(LIBS) -g -w -flto -fdata-sections -ffunction-sections
+CFLAGS = -m32 $(INC) $(DEF) $(OPT) -g -w -flto -fdata-sections -ffunction-sections
 
 # generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"
@@ -128,11 +128,11 @@ $(BUILD_DIR)/gentables          \
 
 # create object files from C files
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
-	@$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@
 
 # gentables
 $(BUILD_DIR)/gentables: $(OBJECTS)
-	$(CC) $(LDFLAGS) $^ -o $(BUILD_DIR)/gentables
+	$(CC) $(LDFLAGS) $(LIBS) $^ /usr/lib/i386-linux-gnu/libX11.so -o $@
 
 # create build directory
 $(BUILD_DIR):

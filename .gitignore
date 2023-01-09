@@ -64,5 +64,4 @@ emdoom.gentables.initial
 
 # wad_to_c
 generated/
-wadder
-shrinkwad
+build/
