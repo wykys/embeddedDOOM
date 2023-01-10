@@ -38,8 +38,10 @@ DEF = \
 C_SOURCES = $(wildcard app/src/*.c)
 C_SOURCES += $(wildcard drivers/src/*.c)
 
-C_SOURCES +=             \
-generated/rawwad_use.c \
+C_SOURCES +=                   \
+generated/rawwad_use.c         \
+generated/baked_map_data.c     \
+generated/baked_texture_data.c \
 
 C_SOURCES +=        \
 doom/src/doomdef.c  \
