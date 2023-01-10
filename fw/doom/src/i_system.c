@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -97,7 +97,7 @@ int  I_GetTime (void)
     struct timezone	tzp;
     int			newtics;
     static int		basetime=0;
-  
+
     gettimeofday(&tp, &tzp);
     if (!basetime)
 	basetime = tp.tv_sec;
@@ -132,12 +132,12 @@ void I_Quit (void)
 void I_WaitVBL(int count)
 {
 #ifdef SGI
-    sginap(1);                                           
+    sginap(1);
 #else
 #ifdef SUN
     sleep(0);
 #else
-    usleep (count * (1000000/700) );                                
+    usleep (count * (1000000/700) );
 #endif
 #endif
 }
@@ -170,12 +170,12 @@ void I_Error (char *error, ...)
 
     // Message first.
     va_start (argptr,error);
-    fprintf (stderr, "Error: ");
-    vfprintf (stderr,error,argptr);
-    fprintf (stderr, "\n");
+    printf("Error: ");
+    vprintf(error, argptr);
+    printf("\n");
     va_end (argptr);
 
-    fflush( stderr );
+    // fflush(stderr);
 
     // Shutdown. Here might be other errors.
     if (demorecording)
@@ -183,6 +183,6 @@ void I_Error (char *error, ...)
 
     D_QuitNetGame ();
     I_ShutdownGraphics();
-    
+
     exit(-1);
 }

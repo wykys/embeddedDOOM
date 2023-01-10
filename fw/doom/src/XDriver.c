@@ -1,5 +1,5 @@
 //Copyright (c) 2011 <>< Charles Lohr - Under the MIT/x11 or NewBSD License you choose.
-//portions from 
+//portions from
 //http://www.xmission.com/~georgeps/documentation/tutorials/Xlib_Beginner.html
 
 //#define HAS_XINERAMA
@@ -57,7 +57,7 @@ void CNFGSetupFullscreen( const char * WindowName, int screen_no )
 
 	if (!XShapeQueryExtension(CNFGDisplay, &event_basep, &error_basep))
 	{
-    	fprintf( stderr, "X-Server does not support shape extension" );
+    	printf("X-Server does not support shape extension" );
 		exit( 1 );
 	}
 
@@ -223,7 +223,7 @@ uint32_t CNFGColor( uint32_t RGB )
 void CNFGClearFrame()
 {
 	XGetWindowAttributes( CNFGDisplay, CNFGWindow, &CNFGWinAtt );
-	XSetForeground(CNFGDisplay, CNFGGC, CNFGColor(CNFGBGColor) );	
+	XSetForeground(CNFGDisplay, CNFGGC, CNFGColor(CNFGBGColor) );
 	XFillRectangle(CNFGDisplay, CNFGPixmap, CNFGGC, 0, 0, CNFGWinAtt.width, CNFGWinAtt.height );
 }
 

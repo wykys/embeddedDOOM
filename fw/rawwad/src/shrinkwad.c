@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 {
     if (argc < 5)
     {
-        fprintf(stderr, "Error: Usage: ./shrinkwad [choice file] [texture file, or '0' to ignore] [.c file] [.h file]\n");
+        printf("Error: Usage: ./shrinkwad [choice file] [texture file, or '0' to ignore] [.c file] [.h file]\n");
         return -9;
     }
     char *line = NULL;
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
         sscanf(line, "%1023s %d %d\n", header, &source, &chunkno);
         if (chunkno >= numlumps || chunkno < 0)
         {
-            fprintf(stderr, "Chunkno out of range. (part 1, %d)\n", chunkno);
+            printf("Chunkno out of range. (part 1, %d)\n", chunkno);
             return -9;
         }
         if (chunkno > highestchunk) highestchunk = chunkno;
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
         FILE *fAccessSprites = fopen(argv[2], "r");
         if (!fAccessSprites)
         {
-            fprintf(stderr, "Error: can't open %s\n", argv[2]);
+            printf("Error: can't open %s\n", argv[2]);
             return -9;
         }
         while (!feof(fAccessSprites) && !ferror(fAccessSprites) )
@@ -117,12 +117,12 @@ int main(int argc, char **argv)
             int ct = fscanf(fAccessSprites, "%127s %d %d %15s\n", cstart, &dummy1, &spriteno, csend);
             if (ct != 4)
             {
-                fprintf(stderr, "Error: invalid sprite on line %d\n", ct);
+                printf("Error: invalid sprite on line %d\n", ct);
                 return -113;
             }
             if (spriteno >= NUMSPRITES)
             {
-                fprintf(stderr, "Error: Invalid sprite (too big) %d\n", spriteno);
+                printf("Error: Invalid sprite (too big) %d\n", spriteno);
                 return -112;
             }
             if (dummy1 != 1)
@@ -175,7 +175,7 @@ int main(int argc, char **argv)
     }
     if (!texture1data)
     {
-        fprintf(stderr, "ERROR: Need 'TEXTURE1' lump in wad.\n");
+        printf("ERROR: Need 'TEXTURE1' lump in wad.\n");
         return -5;
     }
     {
@@ -224,7 +224,7 @@ int main(int argc, char **argv)
                 else if (header [0] == '0')
                     chunkmap[chunkno] = -1;
                 else
-                    fprintf(stderr, "UNKNOWN STRIPCHOICE %s\n", header);
+                    printf("UNKNOWN STRIPCHOICE %s\n", header);
 
 
                 if (chunkmap[chunkno] <= 0 && strncmp(header + 1, "E1M", 3) == 0)
@@ -242,7 +242,7 @@ int main(int argc, char **argv)
 
         if (chunkno >= numlumps || chunkno < 0)
         {
-            fprintf(stderr, "WARNING: Chunkno out of range #2. (%d) (%s)\n", chunkno, header + 1);
+            printf("WARNING: Chunkno out of range #2. (%d) (%s)\n", chunkno, header + 1);
         }
     }
 

@@ -557,7 +557,7 @@ void D_DoomMain (void)
 
     IdentifyVersion ();
 
-    setbuf (stdout, NULL);
+    // setbuf (stdout, NULL);
     modifiedgame = false;
 
     nomonsters = M_CheckParm ("-nomonsters");
@@ -1161,7 +1161,7 @@ extern const texture_t**	textures;
 			numnodes = 0;
 			if( strcmp( bakemaps[i], "SKIP" ) != 0 )
 			{
-				fprintf( stderr, "$$$$ %s\n", bakemaps[i] );
+				printf("$$$$ %s\n", bakemaps[i] );
 				P_SetupLevel( 1, (intptr_t)bakemaps[i], 0, 0 );
 			}
 

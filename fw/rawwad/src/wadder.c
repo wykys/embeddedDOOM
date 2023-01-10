@@ -40,7 +40,7 @@ int main()
     int len = ftell(f);
     if (len <= 0)
     {
-        fprintf(stderr, "Error: Bad WAD.\n");
+        printf("Error: Bad WAD.\n");
     }
     fseek(f, 0, SEEK_SET);
     unsigned char *rawwad = malloc(len);
@@ -76,7 +76,7 @@ int main()
         // Homebrew levels?
         if (strncmp(header.identification, "PWAD", 4))
         {
-            fprintf(stderr, "Wad file  doesn't have IWAD "
+            printf("Wad file  doesn't have IWAD "
               "or PWAD id\n");
             exit(-1);
         }
@@ -99,7 +99,7 @@ int main()
 
     if (!lumpinfo)
     {
-        fprintf(stderr, "Couldn't realloc lumpinfo");
+        printf("Couldn't realloc lumpinfo");
         return -1;
     }
 
