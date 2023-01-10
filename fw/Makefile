@@ -104,7 +104,8 @@ doom/src/d_net.c    \
 doom/src/stubs.c    \
 doom/src/sounds.c   \
 doom/src/s_sound.c  \
-doom/src/i_sound.c
+doom/src/i_sound.c  \
+doom/src/i_video.c  \
 
 # ASM sources
 ASM_SOURCES = \
