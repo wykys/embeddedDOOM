@@ -134,7 +134,7 @@ SIMULATOR = ../cpu-cpp-emulator/sw/build/cpu-emulator
 # build the application
 #######################################
 # compile gcc flags
-ARCH = -march=rv32ima -mabi=ilp32   #-march=rv32i
+ARCH = -march=rv32i
 SPEC = -nostartfiles --specs=nosys.specs
 AFLAGS = $(ARCH) $(SPEC) -Wall $(INC)
 CFLAGS = $(ARCH) $(SPEC) -Wall $(INC) $(DEF) $(OPT) -fno-stack-protector -static -static-libgcc -fdata-sections -ffunction-sections
