@@ -140,11 +140,8 @@ SPEC = -nostartfiles --specs=nosys.specs
 AFLAGS = $(ARCH) $(SPEC) -Wall $(INC)
 CFLAGS = $(ARCH) $(SPEC) -Wall $(INC) $(DEF) $(OPT) -fno-stack-protector -static -static-libgcc -fdata-sections -ffunction-sections
 
-
-# LDFLAGS= -Wl,--gc-sections # -T flatfile-rv32ima.lds -nostdlib
-
 LDSCRIPT = linker_script.ld
-LDFLAGS = $(ARCH) $(SPEC) -Wl,--gc-sections # -T$(LDSCRIPT)
+LDFLAGS = $(ARCH) $(SPEC) -Wl,--gc-sections -T$(LDSCRIPT)
 
 # generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"
