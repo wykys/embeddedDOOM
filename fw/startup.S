@@ -11,7 +11,9 @@ _start:
         jal     ra, _init
 
         // run main function
-        jal     ra, main
+        lui     x1, %hi(main)
+        addi    x1, x1, %lo(main)
+        jalr    ra, x1, 0
 _exit:
         // program loop
         j       _exit

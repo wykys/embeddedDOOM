@@ -137,7 +137,7 @@ void I_WaitVBL(int count)
 #ifdef SUN
     sleep(0);
 #else
-    usleep (count * (1000000/700) );
+    // usleep (count * (1000000/700) ); TODO: přidat zpoždění
 #endif
 #endif
 }

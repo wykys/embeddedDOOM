@@ -1,6 +1,6 @@
 //Stubbed Video.c
 
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -75,7 +75,7 @@ void HandleKey( int keycode, int bDown ){
       case XK_F10:	rc = KEY_F10;		break;
       case XK_F11:	rc = KEY_F11;		break;
       case XK_F12:	rc = KEY_F12;		break;
-	
+
       case XK_BackSpace:
       case XK_Delete:	rc = KEY_BACKSPACE;	break;
 
@@ -91,19 +91,19 @@ void HandleKey( int keycode, int bDown ){
       case XK_Shift_R:
 	rc = KEY_RSHIFT;
 	break;
-	
+
       case XK_Control_L:
       case XK_Control_R:
 	rc = KEY_RCTRL;
 	break;
-	
+
       case XK_Alt_L:
       case XK_Meta_L:
       case XK_Alt_R:
       case XK_Meta_R:
 	rc = KEY_RALT;
 	break;
-	
+
       default:
 	if (rc >= XK_space && rc <= XK_asciitilde)
 	    rc = rc - XK_space + ' ';
@@ -148,7 +148,7 @@ void HandleButton( int x, int y, int button, int bDown )
 
 	lastmousex = x;
 	lastmousey = y;
-	
+
 }
 
 void HandleMotion( int x, int y, int mask )
@@ -184,7 +184,7 @@ void I_SetPalette (byte* palette)
 {
 	memcpy(lpalette, palette, sizeof( lpalette ));
     //UploadNewPalette(X_cmap, palette);
-	
+
 }
 
 #define OUTSCALE 1
@@ -199,12 +199,12 @@ void I_UpdateNoBlit (void)
 
 void I_InitGraphics(void)
 {
-	CNFGSetup( "EmbeddedDoom", SCREENWIDTH*OUTSCALE, SCREENHEIGHT*OUTSCALE );
+	// CNFGSetup( "EmbeddedDoom", SCREENWIDTH*OUTSCALE, SCREENHEIGHT*OUTSCALE );
 }
 
 void I_StartTic (void)
 {
-	CNFGHandleInput();
+	// CNFGHandleInput();
 }
 void I_ReadScreen (byte* scr)
 {
@@ -239,7 +239,7 @@ void I_FinishUpdate (void)
 		for (i=0 ; i<tics*2 ; i+=2)
 			screens[0][ (SCREENHEIGHT-1)*SCREENWIDTH + i] = 0xff;
 		for ( ; i<20*2 ; i+=2)
-			screens[0][ (SCREENHEIGHT-1)*SCREENWIDTH + i] = 0x0;	
+			screens[0][ (SCREENHEIGHT-1)*SCREENWIDTH + i] = 0x0;
     }
 #endif
 
@@ -267,7 +267,7 @@ void I_FinishUpdate (void)
 		}
 	}
 
-	CNFGUpdateScreenWithBitmap( bmdata,SCREENWIDTH*OUTSCALE, SCREENHEIGHT*OUTSCALE );
+	// CNFGUpdateScreenWithBitmap( bmdata,SCREENWIDTH*OUTSCALE, SCREENHEIGHT*OUTSCALE );
 }
 
 

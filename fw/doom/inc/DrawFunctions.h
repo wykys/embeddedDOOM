@@ -10,8 +10,8 @@ extern "C" {
 #include <stdint.h>
 
 typedef struct {
-    short x, y; 
-} RDPoint; 
+    short x, y;
+} RDPoint;
 
 extern int CNFGPenX, CNFGPenY;
 extern uint32_t CNFGBGColor;
